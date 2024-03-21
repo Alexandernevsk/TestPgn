@@ -13,12 +13,20 @@ public class Player {
         return playerPieces;
     }
 
+    private boolean isWhite;
+
+    public boolean getIsWhite(){
+        return isWhite;
+    }
+
     Scanner scanner = new Scanner(System.in);
 
     public Player(int x) {
         if (x == 1) {
+            isWhite = true;
             makeWhitePieces();
         } else if (x == 2) {
+            isWhite = false;
             makeBlackPieces();
         }
     }

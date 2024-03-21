@@ -14,55 +14,39 @@ public class Board {
     }
 
     public void initBoard(Player player1, Player player2) {
-        ArrayList<Piece> whitePieces = player1.getPlayerPieces();
 
         //Make squares with white pieces
-
-        board.put(new Point(0, 7), whitePieces.get(8));
-        board.put(new Point(1, 7), whitePieces.get(10));
-        board.put(new Point(2, 7), whitePieces.get(12));
-        board.put(new Point(3, 7), whitePieces.get(14));
-        board.put(new Point(4, 7), whitePieces.get(15));
-        board.put(new Point(5, 7), whitePieces.get(13));
-        board.put(new Point(6, 7), whitePieces.get(11));
-        board.put(new Point(7, 7), whitePieces.get(9));
-        board.put(new Point(0, 6), whitePieces.get(0));
-        board.put(new Point(1, 6), whitePieces.get(1));
-        board.put(new Point(2, 6), whitePieces.get(2));
-        board.put(new Point(3, 6), whitePieces.get(3));
-        board.put(new Point(4, 6), whitePieces.get(4));
-        board.put(new Point(5, 6), whitePieces.get(5));
-        board.put(new Point(6, 6), whitePieces.get(6));
-        board.put(new Point(7, 6), whitePieces.get(7));
+        ArrayList<Piece> whitePieces = player1.getPlayerPieces();
+        placePiecesOnBoard(7, whitePieces, 6);
 
         //Make empty squares
-
         for(int rank = 2; rank <= 5; rank++){
             for(int file = 0; file < 8; file++) {
                 board.put(new Point(file, rank), null);
             }
         }
-
-        ArrayList<Piece> blackPieces = player2.getPlayerPieces();
-
         //Make squares with black pieces
+        ArrayList<Piece> blackPieces = player2.getPlayerPieces();
+        placePiecesOnBoard(0, blackPieces, 1);
+    }
 
-        board.put(new Point(0, 0), blackPieces.get(8));
-        board.put(new Point(1, 0), blackPieces.get(10));
-        board.put(new Point(2, 0), blackPieces.get(12));
-        board.put(new Point(3, 0), blackPieces.get(14));
-        board.put(new Point(4, 0), blackPieces.get(15));
-        board.put(new Point(5, 0), blackPieces.get(13));
-        board.put(new Point(6, 0), blackPieces.get(11));
-        board.put(new Point(7, 0), blackPieces.get(9));
-        board.put(new Point(0, 1), blackPieces.get(0));
-        board.put(new Point(1, 1), blackPieces.get(1));
-        board.put(new Point(2, 1), blackPieces.get(2));
-        board.put(new Point(3, 1), blackPieces.get(3));
-        board.put(new Point(4, 1), blackPieces.get(4));
-        board.put(new Point(5, 1), blackPieces.get(5));
-        board.put(new Point(6, 1), blackPieces.get(6));
-        board.put(new Point(7, 1), blackPieces.get(7));
+    private void placePiecesOnBoard(int y, ArrayList<Piece> pieces, int y1) {
+        board.put(new Point(0, y), pieces.get(8));
+        board.put(new Point(1, y), pieces.get(10));
+        board.put(new Point(2, y), pieces.get(12));
+        board.put(new Point(3, y), pieces.get(14));
+        board.put(new Point(4, y), pieces.get(15));
+        board.put(new Point(5, y), pieces.get(13));
+        board.put(new Point(6, y), pieces.get(11));
+        board.put(new Point(7, y), pieces.get(9));
+        board.put(new Point(0, y1), pieces.get(0));
+        board.put(new Point(1, y1), pieces.get(1));
+        board.put(new Point(2, y1), pieces.get(2));
+        board.put(new Point(3, y1), pieces.get(3));
+        board.put(new Point(4, y1), pieces.get(4));
+        board.put(new Point(5, y1), pieces.get(5));
+        board.put(new Point(6, y1), pieces.get(6));
+        board.put(new Point(7, y1), pieces.get(7));
     }
 
     public void renderBoard(){

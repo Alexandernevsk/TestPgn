@@ -4,22 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f99b714c-9c75-490a-9b54-4853b13d93cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/ChessTestDrive.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Board.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Piece.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Bishop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/King.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Knight.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Pawn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Queen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Rook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="f99b714c-9c75-490a-9b54-4853b13d93cf" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/chessgame/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/chessgame/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +33,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Alexandernevsk &lt;alexandertorreman@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -161,6 +162,14 @@
       <option name="presentableId" value="Default" />
       <updated>1706286573476</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1710967438676</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710967438676</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,6 +183,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -181,11 +194,6 @@
           <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/chessSebastiaan/Game/Player.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
