@@ -18,12 +18,12 @@ public class Rook implements Piece {
 
 
     @Override
-    public boolean isLegalMove(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom, Player playerMakesMove, Player opposedPlayer, ArrayList<String> moves) {
+    public boolean isLegalMove(ChessData data) {
         return true;
     }
 
     @Override
-    public HashMap<Point, Piece> Move(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom) {
-        return map;
+    public HashMap<Point, Piece> Move(ChessData data) {
+        return null;
     }
 }

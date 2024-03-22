@@ -12,18 +12,20 @@ public class Bishop implements Piece {
     public String getName() {
         return name;
     }
+
     public Bishop(String name){
         this.name = name;
     }
 
-
     @Override
-    public boolean isLegalMove(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom, Player playerMakesMove, Player opposedPlayer, ArrayList<String> moves) {
-        return true;
+    public boolean isLegalMove(ChessData data) {
+        return false;
     }
 
     @Override
-    public HashMap<Point, Piece> Move(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom) {
-        return map;
+    public HashMap<Point, Piece> Move(ChessData data) {
+        return null;
     }
+
+
 }

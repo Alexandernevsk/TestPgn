@@ -56,7 +56,7 @@ public class Board {
                 Point point = new Point(file, rank);
                 Piece piece = board.get(point);
                 if (piece != null) {
-                    System.out.print(piece.getName()); // Assuming Piece has a meaningful toString() method
+                    System.out.print(piece.getName());
                     if(piece.getName().length() == 2){
                         System.out.print("|");
                     }

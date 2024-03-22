@@ -17,7 +17,7 @@ public interface Piece {
         }
         return null;
     }
-    boolean isLegalMove(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom, Player playerMakesMove, Player opposedPlayer, ArrayList<String> moves);
+    boolean isLegalMove(ChessData data);
 
-    HashMap<Point, Piece> Move(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom);
+    HashMap<Point, Piece> Move(ChessData data);
 }

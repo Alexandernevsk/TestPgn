@@ -4,8 +4,11 @@ import chessSebastiaan.Game.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Pawn implements Piece {
+
+    Scanner scanner = new Scanner(System.in);
 
     private final String name;
 
@@ -13,139 +16,212 @@ public class Pawn implements Piece {
     public String getName() {
         return name;
     }
+
     public boolean isEnPassantPawn = false;
 
-    public Pawn(String name){
+    public Pawn(String name) {
         this.name = name;
     }
 
 
-// TODO: PassingPieceIterator(See Bishop/Rook/Queen);
-    // TODO: Promotion
-    // TODO: Print move
+// TODO: PassingPieceIterator((May) Use it for Bishop/Rook/Queen);
+
+
     @Override
-    public boolean isLegalMove(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom, Player playerMakesMove, Player opposedPlayer, ArrayList<String> moves) {
-        boolean notLegal = false;
+    public boolean isLegalMove(ChessData data) {
+
+        var map = data.getBoardFromChessData().getBoard();
+        Point target = data.getTarget();
+        Point tileToMoveFrom = data.getTileToMoveFrom();
+        Player playerMakesMove = data.getPlayerMakesMove();
+        Player opposedPlayer = data.getOpposedPlayer();
+        var moves = data.getMoves();
 
         clearEnPassant(playerMakesMove);
 
-        if(playerMakesMove.getIsWhite()){
-            //For white
-            if(target.x() == tileToMoveFrom.x() && target.y() == tileToMoveFrom.y() - 1){
-                return ifPreventsCollision(map, target, moves);
-                //Move pawn 1 tile forward
+        //White = -1
+        //Black = 1
+        int direction = getDirection(playerMakesMove);
 
-            }
-            else if(target.x() == tileToMoveFrom.x() && target.y() == tileToMoveFrom.y() - 2 && tileToMoveFrom.y() == 6){
-                isEnPassantPawn = true;
-                return ifPreventsCollision(map, target, moves);
-                //Move pawn 2 tiles forward
-
-            }
-            else if((target.x() == tileToMoveFrom.x() - 1 && target.y() == tileToMoveFrom.y() - 1)
-            || (target.x() == tileToMoveFrom.x() + 1 && target.y() == tileToMoveFrom.y() - 1)){
-
-                Point adjacentPawnPoint = new Point(target.x(), target.y() + 1);
-
-                Piece possiblePawn = map.get(adjacentPawnPoint);
-                if(possiblePawn != null){
-                    if(possiblePawn instanceof Pawn pawn){
-                        if(pawn.isEnPassantPawn){
-                            return canCapture(map, adjacentPawnPoint, opposedPlayer, moves);
-                            //Capture enemies' pawn by en passant
-                        }
-                    }
-                }
-                return canCapture(map, target, opposedPlayer, moves);
-                //Capture enemies' piece
-            }
-            else{
-                System.out.println("Illegal move!");
-                return notLegal;
-            }
+        if (isBasicMoveForward(tileToMoveFrom, target, direction)) {
+            return ifPreventsCollision(map, target, moves);
+            //Move pawn 1 tile forward
         }
-        else
-        { //For black
-            if(target.x() == tileToMoveFrom.x() && target.y() == tileToMoveFrom.y() + 1){
-                return ifPreventsCollision(map, target, moves);
-            }
-            else if(target.x() == tileToMoveFrom.x() && target.y() == tileToMoveFrom.y() + 2 && tileToMoveFrom.y() == 1){
-                isEnPassantPawn = true;
-                return ifPreventsCollision(map, target, moves);
-            }
-            else if((target.x() == tileToMoveFrom.x() - 1 && target.y() == tileToMoveFrom.y() + 1)
-                    || (target.x() == tileToMoveFrom.x() + 1 && target.y() == tileToMoveFrom.y() + 1)) {
 
-                Point adjacentPawnPoint = new Point(target.x(), target.y() - 1);
-
-                Piece possiblePawn = map.get(adjacentPawnPoint);
-                if(possiblePawn != null){
-                    if(possiblePawn instanceof Pawn pawn){
-                        if(pawn.isEnPassantPawn){
-                            return canCapture(map, adjacentPawnPoint, opposedPlayer, moves);
-                            //Capture enemies' pawn by en passant
-                        }
-                    }
-                }
-                return canCapture(map, target, opposedPlayer, moves);
-                //Capture enemies' piece
-            }
-            else{
-                System.out.println("Illegal move!");
-                return notLegal;
-            }
+        if (isInitialDoubleMove(tileToMoveFrom, target, direction)) {
+            isEnPassantPawn = true;
+            return ifPreventsCollision(map, target, moves);
         }
+
+        if (isCapture(tileToMoveFrom, target, direction)) {
+            return isRegularOrEnPassantCapture(map, tileToMoveFrom, target, direction, opposedPlayer, moves);
+        }
+
+        System.out.println("Illegal move!");
+        return false;
+
     }
 
-    private static void clearEnPassant(Player opposedPlayer) {
-        ArrayList<Piece> pieces = opposedPlayer.getPlayerPieces();
-        pieces.forEach((p) -> {
-            if(p instanceof Pawn){
-                ((Pawn) p).isEnPassantPawn = false;
-            }
-        });
+    private int getDirection(Player playerMakesMove) {
+        return playerMakesMove.getIsWhite() ? -1 : 1;
     }
 
-    private static boolean canCapture(HashMap<Point, Piece> map, Point target, Player opposedPlayer, ArrayList<String> moves) {
+    private boolean isBasicMoveForward(Point tileToMoveFrom, Point target, int direction) {
+        return tileToMoveFrom.x() == target.x() && target.y() - tileToMoveFrom.y() == direction;
+    }
+
+    private boolean isInitialDoubleMove(Point tileToMoveFrom, Point target, int direction) {
+        int initialRow = direction == -1 ? 6 : 1; // White starts on row 6 (from the bottom), black on row 1
+        return tileToMoveFrom.x() == target.x() && Math.abs(target.y() - tileToMoveFrom.y()) == 2 && tileToMoveFrom.y() == initialRow;
+    }
+
+    private boolean isCapture(Point tileToMoveFrom, Point target, int direction) {
+        return (Math.abs(target.x() - tileToMoveFrom.x()) == 1 && target.y() - tileToMoveFrom.y() == direction);
+    }
+
+    private boolean isRegularOrEnPassantCapture(HashMap<Point, Piece> map, Point tileToMoveFrom, Point target, int direction, Player opposedPlayer, ArrayList<String> moves) {
+        Point adjacentPawnPoint = new Point(target.x(), target.y() - direction); // Checking for en passant
+        Piece possiblePawn = map.get(adjacentPawnPoint);
+        storeCaptureMove(tileToMoveFrom, target, moves);
+        if (possiblePawn instanceof Pawn pawn && pawn.isEnPassantPawn) {
+
+            return canCapture(map, adjacentPawnPoint, opposedPlayer); // En passant capture
+        }
+        return canCapture(map, target, opposedPlayer); // Regular capture
+    }
+
+    private void storeCaptureMove(Point tileToMoveFrom, Point target, ArrayList<String> moves) {
+        String from = pointToChessPosition(tileToMoveFrom);
+        char letter = from.charAt(0);
+        String to = pointToChessPosition(target);
+        moves.add(letter + "x" + to);
+    }
+
+    private void clearEnPassant(Player player) {
+        player.getPlayerPieces().stream()
+                .filter(p -> p instanceof Pawn)
+                .forEach(p -> ((Pawn) p).isEnPassantPawn = false);
+    }
+
+    private boolean canCapture(HashMap<Point, Piece> map, Point target, Player opposedPlayer) {
         var pieceOnTargetedSquare = map.get(target);
         var playerPieces = opposedPlayer.getPlayerPieces();
-        if(playerPieces.contains(pieceOnTargetedSquare)){
+        if (playerPieces.contains(pieceOnTargetedSquare)) {
             map.replace(target, null);
             playerPieces.remove(pieceOnTargetedSquare);
-            //moves.add()
             return true;
-        }
-        else{
+        } else {
             System.out.println("Illegal move!");
             return false;
         }
     }
 
-    @Override
-    public HashMap<Point, Piece> Move(HashMap<Point, Piece> map, Piece chosenPiece, Point target, Point tileToMoveFrom) {
-        map.replace(target, chosenPiece);
-        map.replace(tileToMoveFrom, null);
-        return map;
+    // Check for promotion
+    private boolean isPromotion(Point to, Player playerMakesMove) {
+        return (playerMakesMove.getIsWhite() && to.y() == 0) || (!playerMakesMove.getIsWhite() && to.y() == 7);
     }
 
-    private static boolean ifPreventsCollision(HashMap<Point, Piece> map, Point target, ArrayList<String> moves){
-        if(map.get(target) == null){ //Check if targeted tile is empty (no piece on it)
+    private void promotePawn(ChessData data) {
+
+        var map = data.getBoardFromChessData().getBoard();
+        var playerMakesMove = data.getPlayerMakesMove();
+        var chosenPiece = data.getChosenPiece();
+        var placeToPromote = data.getTarget();
+        var moves = data.getMoves();
+        var promotionNumbers = playerMakesMove.getPromotionNumbers();
+
+
+        boolean isSuccessfulPromotion = false;
+        var pieces = playerMakesMove.getPlayerPieces();
+        pieces.remove(chosenPiece);
+        do{
+        System.out.println("Which piece do you want your pawn to promote? Choose r, n, b or q");
+        String letter = scanner.nextLine();
+        switch(letter){
+            case "r" -> {
+                int number = promotionNumbers.get("Rook");
+                Rook rook = new Rook(playerMakesMove.getIsWhite() ? "R" + number : "r" + number);
+                promotionNumbers.replace("Rook", ++number);
+
+                map.replace(placeToPromote, rook);
+                pieces.add(rook);
+                isSuccessfulPromotion = true;
+                String lastMove = moves.get(moves.size() - 1);
+                moves.set(moves.size() - 1, lastMove + "=R");
+            }
+            case "n" -> {
+                int number = promotionNumbers.get("Knight");
+                Knight knight = new Knight(playerMakesMove.getIsWhite() ? "N" + number  : "n" + number);
+                promotionNumbers.replace("Knight", ++number);
+
+                map.replace(placeToPromote, knight);
+                pieces.add(knight);
+                isSuccessfulPromotion = true;
+                String lastMove = moves.get(moves.size() - 1);
+                moves.set(moves.size() - 1, lastMove + "=N");
+            }
+            case "b" -> {
+                int number = promotionNumbers.get("Bishop");
+                Bishop bishop = new Bishop(playerMakesMove.getIsWhite() ? "B" + number : "b" + number);
+                promotionNumbers.replace("Bishop", ++number);
+
+                map.replace(placeToPromote, bishop);
+                pieces.add(bishop);
+                isSuccessfulPromotion = true;
+                String lastMove = moves.get(moves.size() - 1);
+                moves.set(moves.size() - 1, lastMove + "=B");
+            }
+            case "q" -> {
+                int number = promotionNumbers.get("Queen");
+                Queen queen = new Queen(playerMakesMove.getIsWhite() ? "Q" + number : "q" + number);
+                promotionNumbers.replace("Queen", ++number);
+
+                map.replace(placeToPromote, queen);
+                pieces.add(queen);
+                isSuccessfulPromotion = true;
+                String lastMove = moves.get(moves.size() - 1);
+                moves.set(moves.size() - 1, lastMove + "=Q");
+            }
+            default -> System.out.println("Bad input.");
+            }
+        }while (!isSuccessfulPromotion);
+    }
+
+
+    private boolean ifPreventsCollision(HashMap<Point, Piece> map, Point target, ArrayList<String> moves) {
+        if (map.get(target) == null) { //Check if targeted tile is empty (no piece on it)
             moves.add(pointToChessPosition(target));
             return true;
-        }
-
-        else{
+        } else {
             System.out.println("Illegal move!");
             return false;
         }
     }
 
-    private static String pointToChessPosition(Point point) {
+    private String pointToChessPosition(Point point) {
         char columnLetter = (char) ('a' + point.x());
         int rowNumber = point.y() + 1;
         return String.valueOf(columnLetter) + rowNumber;
     }
+
+
+    @Override
+    public HashMap<Point, Piece> Move(ChessData data) {
+        var map = data.getBoardFromChessData().getBoard();
+        var target = data.getTarget();
+        var tileToMoveFrom = data.getTileToMoveFrom();
+        //Removes piece from initial tile
+        if(isPromotion(target, data.getPlayerMakesMove())){
+            promotePawn(data);
+        }
+        else{
+            map.replace(target, data.getChosenPiece()); //Places piece on target square
+        }
+        map.replace(tileToMoveFrom, null); //Removes piece from initial tile
+        return map;
+    }
 }
+
 
     // 1. Pawn must be on same file while moving.
     // 2. Can move only 1 forward, except at begin, where you can move 1 or 2 tiles

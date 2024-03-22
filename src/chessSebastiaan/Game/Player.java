@@ -3,21 +3,29 @@ package chessSebastiaan.Game;
 import chessSebastiaan.Game.Pieces.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Player {
 
     private final ArrayList<Piece> playerPieces = new ArrayList<>();
+    private boolean isWhite;
+    private HashMap<String, Integer> promotionNumbers = new HashMap<>();;
 
     public ArrayList<Piece> getPlayerPieces() {
         return playerPieces;
     }
 
-    private boolean isWhite;
-
     public boolean getIsWhite(){
         return isWhite;
     }
+
+    public HashMap<String, Integer> getPromotionNumbers(){
+        return promotionNumbers;
+    }
+//    public void setPromotionNumbers(HashMap<String, Integer> promotionNumbers){
+//        this.promotionNumbers = promotionNumbers;
+//    }
 
     Scanner scanner = new Scanner(System.in);
 
@@ -29,6 +37,11 @@ public class Player {
             isWhite = false;
             makeBlackPieces();
         }
+        promotionNumbers.put("Rook", 3);
+        promotionNumbers.put("Knight", 3);
+        promotionNumbers.put("Bishop", 3);
+        promotionNumbers.put("Queen", 2);
+
     }
 
     public Piece choosePiece() {
