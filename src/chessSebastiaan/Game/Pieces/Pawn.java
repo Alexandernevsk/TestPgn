@@ -4,20 +4,23 @@ import chessSebastiaan.Game.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Pawn implements Piece {
 
     Scanner scanner = new Scanner(System.in);
-
     private final String name;
+    private Map<String, Function<Integer, Piece>> promotionMap = new HashMap<>();
+    public boolean isEnPassantPawn = false;
 
     @Override
     public String getName() {
         return name;
     }
 
-    public boolean isEnPassantPawn = false;
+
 
     public Pawn(String name) {
         this.name = name;
@@ -121,6 +124,12 @@ public class Pawn implements Piece {
         return (playerMakesMove.getIsWhite() && to.y() == 0) || (!playerMakesMove.getIsWhite() && to.y() == 7);
     }
 
+    private void initializePromotionMap(Player player) {
+        promotionMap.put("r", number -> new Rook(player.getIsWhite() ? "R" + number : "r" + number));
+        promotionMap.put("n", number -> new Knight(player.getIsWhite() ? "N" + number : "n" + number));
+        promotionMap.put("b", number -> new Bishop(player.getIsWhite() ? "B" + number : "b" + number));
+        promotionMap.put("q", number -> new Queen(player.getIsWhite() ? "Q" + number : "q" + number));
+    }
     private void promotePawn(ChessData data) {
 
         var map = data.getBoardFromChessData().getBoard();
@@ -137,52 +146,23 @@ public class Pawn implements Piece {
         do{
         System.out.println("Which piece do you want your pawn to promote? Choose r, n, b or q");
         String letter = scanner.nextLine();
-        switch(letter){
-            case "r" -> {
-                int number = promotionNumbers.get("Rook");
-                Rook rook = new Rook(playerMakesMove.getIsWhite() ? "R" + number : "r" + number);
-                promotionNumbers.replace("Rook", ++number);
 
-                map.replace(placeToPromote, rook);
-                pieces.add(rook);
-                isSuccessfulPromotion = true;
-                String lastMove = moves.get(moves.size() - 1);
-                moves.set(moves.size() - 1, lastMove + "=R");
-            }
-            case "n" -> {
-                int number = promotionNumbers.get("Knight");
-                Knight knight = new Knight(playerMakesMove.getIsWhite() ? "N" + number  : "n" + number);
-                promotionNumbers.replace("Knight", ++number);
+            Function<Integer, Piece> pieceCreator = promotionMap.get(letter);
 
-                map.replace(placeToPromote, knight);
-                pieces.add(knight);
-                isSuccessfulPromotion = true;
-                String lastMove = moves.get(moves.size() - 1);
-                moves.set(moves.size() - 1, lastMove + "=N");
-            }
-            case "b" -> {
-                int number = promotionNumbers.get("Bishop");
-                Bishop bishop = new Bishop(playerMakesMove.getIsWhite() ? "B" + number : "b" + number);
-                promotionNumbers.replace("Bishop", ++number);
+            if (pieceCreator != null) {
+                int number = promotionNumbers.get(letter.toUpperCase());
+                Piece newPiece = pieceCreator.apply(++number);
+                map.replace(placeToPromote, newPiece);
+                pieces.add(newPiece);
 
-                map.replace(placeToPromote, bishop);
-                pieces.add(bishop);
-                isSuccessfulPromotion = true;
+                // Update promotion numbers and last move
+                promotionNumbers.replace(letter.toUpperCase(), number);
                 String lastMove = moves.get(moves.size() - 1);
-                moves.set(moves.size() - 1, lastMove + "=B");
-            }
-            case "q" -> {
-                int number = promotionNumbers.get("Queen");
-                Queen queen = new Queen(playerMakesMove.getIsWhite() ? "Q" + number : "q" + number);
-                promotionNumbers.replace("Queen", ++number);
+                moves.set(moves.size() - 1, lastMove + "=" + letter.toUpperCase());
 
-                map.replace(placeToPromote, queen);
-                pieces.add(queen);
                 isSuccessfulPromotion = true;
-                String lastMove = moves.get(moves.size() - 1);
-                moves.set(moves.size() - 1, lastMove + "=Q");
-            }
-            default -> System.out.println("Bad input.");
+            } else {
+                System.out.println("Invalid input. Please enter r, n, b, or q.");
             }
         }while (!isSuccessfulPromotion);
     }
@@ -200,7 +180,7 @@ public class Pawn implements Piece {
 
     private String pointToChessPosition(Point point) {
         char columnLetter = (char) ('a' + point.x());
-        int rowNumber = point.y() + 1;
+        int rowNumber = 8 - point.y();
         return String.valueOf(columnLetter) + rowNumber;
     }
 

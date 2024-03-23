@@ -37,10 +37,10 @@ public class Player {
             isWhite = false;
             makeBlackPieces();
         }
-        promotionNumbers.put("Rook", 3);
-        promotionNumbers.put("Knight", 3);
-        promotionNumbers.put("Bishop", 3);
-        promotionNumbers.put("Queen", 2);
+        promotionNumbers.put("R", 3);
+        promotionNumbers.put("K", 3);
+        promotionNumbers.put("B", 3);
+        promotionNumbers.put("Q", 2);
 
     }
 
