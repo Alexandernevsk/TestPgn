@@ -2,10 +2,7 @@ package chessSebastiaan.Game.Pieces;
 
 import chessSebastiaan.Game.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Function;
 
 public class Pawn implements Piece {
@@ -51,7 +48,7 @@ public class Pawn implements Piece {
             //Move pawn 1 tile forward
         }
 
-        if (isInitialDoubleMove(tileToMoveFrom, target, direction)) {
+        if (isInitialDoubleMove(tileToMoveFrom, target, map, direction)) {
             isEnPassantPawn = true;
             return ifPreventsCollision(map, target, moves);
         }
@@ -73,7 +70,10 @@ public class Pawn implements Piece {
         return tileToMoveFrom.x() == target.x() && target.y() - tileToMoveFrom.y() == direction;
     }
 
-    private boolean isInitialDoubleMove(Point tileToMoveFrom, Point target, int direction) {
+    private boolean isInitialDoubleMove(Point tileToMoveFrom, Point target, HashMap<Point, Piece> map, int direction) {
+        Point crossingTile = new Point(target.x(), target.y() - direction);
+         if(map.get(crossingTile) != null)
+             return false;
         int initialRow = direction == -1 ? 6 : 1; // White starts on row 6 (from the bottom), black on row 1
         return tileToMoveFrom.x() == target.x() && Math.abs(target.y() - tileToMoveFrom.y()) == 2 && tileToMoveFrom.y() == initialRow;
     }

@@ -28,12 +28,14 @@ public class Game {
 
         do {
             do {
-                //Choose piece and the tile to target.
-                pieceSelected = currentPlayer.choosePiece();
-                data.setChosenPiece(pieceSelected);
+                do {
+                    //Choose piece and the tile to target.
+                    pieceSelected = currentPlayer.choosePiece();
+                    data.setChosenPiece(pieceSelected);
 
-                target = currentPlayer.makeMove(board);
-                data.setTarget(target);
+                    target = currentPlayer.makeMove(board);
+                    data.setTarget(target);
+                }while(target == null);
 
                 //Get the tile where the piece moves from.
                 tileToMoveFrom = pieceSelected.getTileToMoveFrom(map, pieceSelected);

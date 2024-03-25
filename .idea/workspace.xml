@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f99b714c-9c75-490a-9b54-4853b13d93cf" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711149336795</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Initial commit">
+      <created>1711212786468</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711212786468</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -201,18 +209,9 @@
           <option name="timeStamp" value="1" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Pawn.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Pawn.java</url>
-          <line>180</line>
-          <properties class="chessSebastiaan.Game.Pieces.Pawn" method="pointToChessPosition">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/src/chessSebastiaan/Game/Pieces/Rook.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
