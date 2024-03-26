@@ -17,12 +17,21 @@ public class King implements Piece {
     }
     @Override
     public boolean isLegalMove(ChessData data) {
-        return true;
+        Point target = data.getTarget();
+        Point tileToMoveFrom = data.getTileToMoveFrom();
+
+        if (isLegalKingMove(tileToMoveFrom, target)) {
+            return PieceHelper.ifPreventsCollisionOrCanCapture(data);
+        }
+
+        System.out.println("Illegal move!");
+        return false;
+    }
+    public static boolean isLegalKingMove(Point tileToMoveFrom, Point target) {
+        int dx = Math.abs(tileToMoveFrom.x() - target.x());
+        int dy = Math.abs(tileToMoveFrom.y() - target.y());
+        return (dx <= 1 && dy <= 1); // King can move one square in any direction. Don't worry, king can't capture itself.
     }
 
-    @Override
-    public HashMap<Point, Piece> Move(ChessData data) {
-        return null;
-    }
 }
 //Program attacking squares(for check and checkmate)

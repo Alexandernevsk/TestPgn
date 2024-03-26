@@ -17,11 +17,19 @@ public class Knight implements Piece {
     }
     @Override
     public boolean isLegalMove(ChessData data) {
-        return true;
-    }
+        Point target = data.getTarget();
+        Point tileToMoveFrom = data.getTileToMoveFrom();
 
-    @Override
-    public HashMap<Point, Piece> Move(ChessData data) {
-        return null;
+        if (isLegalKnightMove(tileToMoveFrom, target)) {
+            return PieceHelper.ifPreventsCollisionOrCanCapture(data);
+        }
+
+        System.out.println("Illegal move!");
+        return false;
+    }
+    public static boolean isLegalKnightMove(Point tileToMoveFrom, Point target) {
+        int dx = Math.abs(tileToMoveFrom.x() - target.x());
+        int dy = Math.abs(tileToMoveFrom.y() - target.y());
+        return (dx == 1 && dy == 2) || (dx == 2 && dy == 1);
     }
 }

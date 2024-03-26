@@ -6,7 +6,6 @@ public class Game {
 
     public void run(){
 
-        //Write only object?
         ChessData data = new ChessData();
 
         data.setPlayerMakesMove(new Player(1));

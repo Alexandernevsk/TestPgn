@@ -19,5 +19,10 @@ public interface Piece {
     }
     boolean isLegalMove(ChessData data);
 
-    HashMap<Point, Piece> Move(ChessData data);
+    default HashMap<Point, Piece> Move(ChessData data) {
+        var map = data.getBoardFromChessData().getBoard();;
+        map.replace(data.getTarget(), data.getChosenPiece()); //Places piece on target square
+        map.replace(data.getTileToMoveFrom(), null); //Removes piece from initial tile
+        return map;
+    }
 }

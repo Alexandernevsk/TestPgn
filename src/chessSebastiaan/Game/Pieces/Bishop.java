@@ -19,13 +19,24 @@ public class Bishop implements Piece {
 
     @Override
     public boolean isLegalMove(ChessData data) {
+        var map = data.getBoardFromChessData().getBoard();
+        Point target = data.getTarget();
+        Point tileToMoveFrom = data.getTileToMoveFrom();
+
+        if (isLegalBishopMove(map, tileToMoveFrom, target)) {
+            return PieceHelper.ifPreventsCollisionOrCanCapture(data);
+        }
+
+        System.out.println("Illegal move!");
         return false;
     }
 
-    @Override
-    public HashMap<Point, Piece> Move(ChessData data) {
-        return null;
+    private boolean isLegalBishopMove(HashMap<Point, Piece> map, Point tileToMoveFrom, Point target) {
+        // Check if the move is along a diagonal line
+        if (Math.abs(tileToMoveFrom.x() - target.x()) == Math.abs(tileToMoveFrom.y() - target.y())) {
+            // Check if the path is clear between the starting and ending points
+            return PieceHelper.isPathClear(map, tileToMoveFrom, target);
+        }
+        return false;
     }
-
-
 }

@@ -17,11 +17,34 @@ public class Queen implements Piece {
     }
     @Override
     public boolean isLegalMove(ChessData data) {
-        return true;
+        var map = data.getBoardFromChessData().getBoard();
+        Point target = data.getTarget();
+        Point tileToMoveFrom = data.getTileToMoveFrom();
+
+        if (isLegalQueenMove(map, tileToMoveFrom, target)) {
+            return PieceHelper.ifPreventsCollisionOrCanCapture(data);
+        }
+
+        System.out.println("Illegal move!");
+        return false;
     }
 
-    @Override
-    public HashMap<Point, Piece> Move(ChessData data) {
-        return null;
+    private boolean isLegalQueenMove(HashMap<Point, Piece> map, Point tileToMoveFrom, Point target) {
+        // Check if the move is along a straight line (either horizontally, vertically, or diagonally)
+        if (isStraightLineMove(tileToMoveFrom, target) || isDiagonalMove(tileToMoveFrom, target)) {
+            // Check if the path is clear between the starting and ending points
+            return PieceHelper.isPathClear(map, tileToMoveFrom, target);
+        }
+        return false;
+    }
+
+    // Helper method to check if the move is along a straight line (either horizontally or vertically)
+    private boolean isStraightLineMove(Point from, Point to) {
+        return from.x() == to.x() || from.y() == to.y();
+    }
+
+    // Helper method to check if the move is along a diagonal line
+    private boolean isDiagonalMove(Point from, Point to) {
+        return Math.abs(from.x() - to.x()) == Math.abs(from.y() - to.y());
     }
 }
