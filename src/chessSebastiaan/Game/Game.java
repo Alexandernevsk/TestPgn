@@ -1,6 +1,7 @@
 package chessSebastiaan.Game;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Game {
 
@@ -19,7 +20,7 @@ public class Game {
         var board = data.getBoardFromChessData();
         var map = board.getBoard();
 
-        Piece pieceSelected;
+        Optional<Piece> pieceSelected;
         Point target;
         Point tileToMoveFrom;
 

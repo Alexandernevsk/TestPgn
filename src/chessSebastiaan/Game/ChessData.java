@@ -1,12 +1,14 @@
 package chessSebastiaan.Game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Optional;
 
 public class ChessData {
 
     private Board board;
-    private Piece chosenPiece;
+
+    private Square square;
+    private Optional<Piece> chosenPiece;
     private Point target;
     private Point tileToMoveFrom;
     private Player playerMakesMove;
@@ -21,10 +23,17 @@ public class ChessData {
         this.board = board;
     }
 
-    public Piece getChosenPiece(){
+    public Square getSquare(){
+        return square;
+    }
+    public void setSquare(Square square){
+        this.square= square;
+    }
+
+    public Optional<Piece> getChosenPiece(){
         return chosenPiece;
     }
-    public void setChosenPiece(Piece chosenPiece){
+    public void setChosenPiece(Optional<Piece> chosenPiece){
         this.chosenPiece = chosenPiece;
     }
 

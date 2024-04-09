@@ -24,7 +24,7 @@ public class Pawn implements Piece {
     }
 
 
-// TODO: PassingPieceIterator((May) Use it for Bishop/Rook/Queen);
+// TODO: Make attacking squares
 
 
     @Override

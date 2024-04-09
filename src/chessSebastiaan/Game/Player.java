@@ -4,15 +4,16 @@ import chessSebastiaan.Game.Pieces.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Player {
 
-    private final ArrayList<Piece> playerPieces = new ArrayList<>();
+    private final ArrayList<Optional<Piece>> playerPieces = new ArrayList<>();
     private boolean isWhite;
     private HashMap<String, Integer> promotionNumbers = new HashMap<>();;
 
-    public ArrayList<Piece> getPlayerPieces() {
+    public ArrayList<Optional<Piece>>  getPlayerPieces() {
         return playerPieces;
     }
 
@@ -44,14 +45,15 @@ public class Player {
 
     }
 
-    public Piece choosePiece() {
+    public Optional<Piece>  choosePiece() {
 
         do {
             System.out.println("What piece do you want to move?");
             String pieceToMove = scanner.nextLine();
-            for (Piece piece : playerPieces) {
-                if (piece.getName().equals(pieceToMove)) {
-                    return piece;
+            for (Optional<Piece>  piece : playerPieces) {
+                if(piece.isPresent())
+                    if (piece.get().getName().equals(pieceToMove)) {
+                         return piece;
                 }
             }
             System.out.println("Not a legal piece.");
@@ -114,41 +116,41 @@ public class Player {
 
 
     private void makeWhitePieces() {
-        playerPieces.add(new Pawn("P1"));
-        playerPieces.add(new Pawn("P2"));
-        playerPieces.add(new Pawn("P3"));
-        playerPieces.add(new Pawn("P4"));
-        playerPieces.add(new Pawn("P5"));
-        playerPieces.add(new Pawn("P6"));
-        playerPieces.add(new Pawn("P7"));
-        playerPieces.add(new Pawn("P8"));
-        playerPieces.add(new Rook("R1"));
-        playerPieces.add(new Rook("R2"));
-        playerPieces.add(new Knight("N1"));
-        playerPieces.add(new Knight("N2"));
-        playerPieces.add(new Bishop("B1"));
-        playerPieces.add(new Bishop("B2"));
-        playerPieces.add(new Queen("Q"));
-        playerPieces.add(new King("K"));
+        playerPieces.add(Optional.of(new Pawn("P1")));
+        playerPieces.add(Optional.of(new Pawn("P2")));
+        playerPieces.add(Optional.of(new Pawn("P3")));
+        playerPieces.add(Optional.of(new Pawn("P4")));
+        playerPieces.add(Optional.of(new Pawn("P5")));
+        playerPieces.add(Optional.of(new Pawn("P6")));
+        playerPieces.add(Optional.of(new Pawn("P7")));
+        playerPieces.add(Optional.of(new Pawn("P8")));
+        playerPieces.add(Optional.of(new Rook("R1")));
+        playerPieces.add(Optional.of(new Rook("R2")));
+        playerPieces.add(Optional.of(new Knight("N1")));
+        playerPieces.add(Optional.of(new Knight("N2")));
+        playerPieces.add(Optional.of(new Bishop("B1")));
+        playerPieces.add(Optional.of(new Bishop("B2")));
+        playerPieces.add(Optional.of(new Queen("Q")));
+        playerPieces.add(Optional.of(new King("K")));
     }
 
     private void makeBlackPieces() {
-        playerPieces.add(new Pawn("p1"));
-        playerPieces.add(new Pawn("p2"));
-        playerPieces.add(new Pawn("p3"));
-        playerPieces.add(new Pawn("p4"));
-        playerPieces.add(new Pawn("p5"));
-        playerPieces.add(new Pawn("p6"));
-        playerPieces.add(new Pawn("p7"));
-        playerPieces.add(new Pawn("p8"));
-        playerPieces.add(new Rook("r1"));
-        playerPieces.add(new Rook("r2"));
-        playerPieces.add(new Knight("n1"));
-        playerPieces.add(new Knight("n2"));
-        playerPieces.add(new Bishop("b1"));
-        playerPieces.add(new Bishop("b2"));
-        playerPieces.add(new Queen("q"));
-        playerPieces.add(new King("k"));
+        playerPieces.add(Optional.of(new Pawn("p1")));
+        playerPieces.add(Optional.of(new Pawn("p2")));
+        playerPieces.add(Optional.of(new Pawn("p3")));
+        playerPieces.add(Optional.of(new Pawn("p4")));
+        playerPieces.add(Optional.of(new Pawn("p5")));
+        playerPieces.add(Optional.of(new Pawn("p6")));
+        playerPieces.add(Optional.of(new Pawn("p7")));
+        playerPieces.add(Optional.of(new Pawn("p8")));
+        playerPieces.add(Optional.of(new Rook("r1")));
+        playerPieces.add(Optional.of(new Rook("r2")));
+        playerPieces.add(Optional.of(new Knight("n1")));
+        playerPieces.add(Optional.of(new Knight("n2")));
+        playerPieces.add(Optional.of(new Bishop("b1")));
+        playerPieces.add(Optional.of(new Bishop("b2")));
+        playerPieces.add(Optional.of(new Queen("q")));
+        playerPieces.add(Optional.of(new King("k")));
     }
 
 
